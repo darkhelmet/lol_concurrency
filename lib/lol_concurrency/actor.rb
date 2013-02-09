@@ -38,7 +38,7 @@ module LolConcurrency
     def async
       @async ||= begin
         synchronize do
-          @async || Async.new(self)
+          @async ||= Async.new(self)
         end
       end
     end
