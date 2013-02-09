@@ -18,7 +18,24 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+    class Foo
+      include LolConcurrency::Future
+      include LolConcurrency::Actor
+
+      def long_running_method
+        # Implementation
+      end
+
+      def background_job
+        # Implementation
+      end
+    end
+
+    foo = Foo.new
+    foo.async.background_job
+    future = foo.future.long_running_method
+    # ...
+    value = future.value
 
 ## Contributing
 
