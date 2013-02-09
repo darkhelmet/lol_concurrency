@@ -29,7 +29,7 @@ module LolConcurrency
         Thread.new do
           loop do
             ctx = mailbox.pop
-            instance.send(ctx.method, *ctx.args, &ctx.block)
+            instance.public_send(ctx.method, *ctx.args, &ctx.block)
           end
         end
       end
