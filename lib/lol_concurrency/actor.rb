@@ -1,5 +1,6 @@
 require 'forwardable'
 require 'thread'
+require 'monitor'
 
 module LolConcurrency
   module Actor
@@ -35,7 +36,17 @@ module LolConcurrency
     end
 
     def async
-      Async.new(self)
+      @async ||= begin
+        synchronize do
+          @async || Async.new(self)
+        end
+      end
+    end
+
+    def self.included(klass)
+      unless klass < MonitorMixin
+        klass.send(:include, MonitorMixin)
+      end
     end
   end
 end
