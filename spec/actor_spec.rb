@@ -29,6 +29,8 @@ describe LolConcurrency::Actor do
     it { should respond_to(:thing) }
     it { should respond_to(:call) }
     it { should respond_to(:call_with_block) }
+    it { should_not respond_to(:instance) }
+    it { should_not respond_to(:mailbox) }
 
     it 'should return nil when you call methods on the async' do
       subject.thing.should be_nil
