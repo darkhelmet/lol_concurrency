@@ -1,5 +1,3 @@
 require 'lol_concurrency/version'
-
-module LolConcurrency
-  # Your code goes here...
-end
+require 'lol_concurrency/actor'
+require 'lol_concurrency/future'
