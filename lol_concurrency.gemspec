@@ -18,4 +18,8 @@ Gem::Specification.new do |gem|
   gem.require_paths = ['lib']
 
   gem.add_development_dependency('rspec', '~> 2.12')
+  gem.add_development_dependency('pry', '~> 0.9')
+  gem.add_development_dependency('pry-rescue', '~> 1.4.1')
+  gem.add_development_dependency('pry-stack_explorer', '~> 0.4.9.1')
+  gem.add_development_dependency('pry-clipboard', '~> 0.1.1')
 end
