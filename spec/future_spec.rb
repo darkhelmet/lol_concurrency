@@ -12,6 +12,14 @@ FakeFuture = Struct.new(:thing) do
   end
 end
 
+ExtendedFakeFuture = Struct.new(:thing) do
+  extend LolConcurrency::Future
+
+  def self.call_slowly(n)
+    sleep(n)
+  end
+end
+
 describe LolConcurrency::Future do
   let(:object) { 'LolConcurrency' }
 
@@ -54,6 +62,17 @@ describe LolConcurrency::Future do
       stop = Time.now
       value.should == 2
       (stop - start).should be_within(0.1).of(0.0)
+    end
+
+    context 'for class methods' do
+      subject { ExtendedFakeFuture.future }
+
+      it { should respond_to(:call_slowly) }
+
+      it 'should work on the class level just like the instance level' do
+        future = subject.call_slowly(2)
+        expect(future.value).to eq(2)
+      end
     end
   end
 end

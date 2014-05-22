@@ -15,5 +15,11 @@ module LolConcurrency
         klass.send(:include, MonitorMixin)
       end
     end
+
+    def self.extended(klass)
+      unless klass.singleton_class < MonitorMixin
+        klass.send(:extend, MonitorMixin)
+      end
+    end
   end
 end
