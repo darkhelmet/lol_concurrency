@@ -10,6 +10,10 @@ FakeFuture = Struct.new(:thing) do
   def call(n, &block)
     block.call(n)
   end
+
+  def errored
+    raise "What happens when the method call fails"
+  end
 end
 
 ExtendedFakeFuture = Struct.new(:thing) do
@@ -62,6 +66,11 @@ describe LolConcurrency::Future do
       stop = Time.now
       value.should == 2
       (stop - start).should be_within(0.1).of(0.0)
+    end
+
+    it 'should defer errors' do
+      future = subject.errored
+      expect{ future.value }.to raise_error
     end
 
     context 'for class methods' do

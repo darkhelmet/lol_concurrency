@@ -10,7 +10,11 @@ module LolConcurrency
       def value
         @value ||= begin
           synchronize do
-            @value ||= queue.pop
+            @value ||= begin
+              v = queue.pop
+              raise v if Exception === v
+              v
+            end
           end
         end
       end
